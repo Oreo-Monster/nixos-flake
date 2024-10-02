@@ -1,8 +1,12 @@
-{ config, pkgs, lib, ... } : 
 {
- config = {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  config = {
     environment.systemPackages = with pkgs; [
-      neovim 
+      neovim
       wget
       kitty
       tmux

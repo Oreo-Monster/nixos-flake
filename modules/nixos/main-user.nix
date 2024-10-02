@@ -1,12 +1,14 @@
-{ lib, config, pkgs, ... }:
-
-let
-  cfg = config.main-user;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.main-user;
+in {
   options.main-user = {
-    enable 
-      = lib.mkEnableOption "enable user module";
+    enable =
+      lib.mkEnableOption "enable user module";
 
     userName = lib.mkOption {
       default = "mainuser";
@@ -23,5 +25,4 @@ in
       shell = pkgs.zsh;
     };
   };
-
 }

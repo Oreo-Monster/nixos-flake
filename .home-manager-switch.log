@@ -1,0 +1,1 @@
+[K[Kerror: flake 'git+file:///home/eda/.nixos' does not provide attribute 'packages.x86_64-linux.homeConfigurations."eda".activationPackage', 'legacyPackages.x86_64-linux.homeConfigurations."eda".activationPackage' or 'homeConfigurations."eda".activationPackage'

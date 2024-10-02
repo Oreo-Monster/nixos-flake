@@ -1,20 +1,22 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./../../modules/nixos/nvidia.nix
-      ./../../modules/nixos/i3.nix
-      ./../../modules/nixos/system-packages.nix
-      ./../../modules/nixos/fonts.nix
-    ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./../../modules/nixos/nvidia.nix
+    ./../../modules/nixos/i3.nix
+    ./../../modules/nixos/system-packages.nix
+    ./../../modules/nixos/fonts.nix
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -59,17 +61,17 @@
   users.users.eda = {
     isNormalUser = true;
     description = "eda";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
   };
 
   # Allow unfree packages
   nixpkgs.config = {
-      allowUnfree = true;
-      # Needed for Obsidian
-      permittedInsecurePackages = [
-        "electron-24.8.6"
-      ];
+    allowUnfree = true;
+    # Needed for Obsidian
+    permittedInsecurePackages = [
+      "electron-24.8.6"
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -83,14 +85,14 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  programs.ssh =  {
+  programs.ssh = {
     startAgent = true;
   };
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   #Helps with zsh auto complete
-  environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = ["/share/zsh"];
 
   #Sound
   security.rtkit.enable = true;
@@ -101,7 +103,6 @@
     pulse.enable = true;
     jack.enable = true;
   };
-  
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -116,5 +117,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }

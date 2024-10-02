@@ -1,12 +1,16 @@
-{ config, pkgs, lib, ... } : 
 {
- config = {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  config = {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
     };
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [
@@ -16,9 +20,10 @@
       rofi-wayland
       networkmanagerapplet
       waybar
-      (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
+      (
+        waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+        })
       )
     ];
   };
