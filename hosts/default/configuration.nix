@@ -14,6 +14,7 @@
     ./../../modules/nixos/i3.nix
     ./../../modules/nixos/system-packages.nix
     ./../../modules/nixos/fonts.nix
+    ./../../modules/nixos/ollama.nix
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
