@@ -26,7 +26,10 @@
   networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    nameservers = ["192.168.0.249" "1.1.1.1"];
+  };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
