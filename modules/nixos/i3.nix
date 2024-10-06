@@ -33,5 +33,9 @@
     };
 
     services.displayManager.defaultSession = "xfce+i3";
+
+    services.picom = {
+      enable = true;
+    };
   };
 }
