@@ -61,6 +61,9 @@
     description = "eda";
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
+    openssh.authorizedKeys.keyFiles = [
+      /home/eda/.ssh/authorized_keys
+    ];
   };
   #Set up ZSH for the system
   users.defaultUserShell = pkgs.zsh;

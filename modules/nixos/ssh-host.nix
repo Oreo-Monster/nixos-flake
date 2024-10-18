@@ -1,0 +1,59 @@
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  options = {};
+
+  config = {
+    services.openssh = {
+      enable = true;
+      ports = [22];
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        AllowUsers = ["eda"]; # Allows all users by default. Can be [ "user1" "user2" ]
+        UseDns = true;
+        X11Forwarding = false;
+        PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+      };
+      banner = ''
+            _   ___      ____  _____
+           / | / (_)  __/ __ \/ ___/
+          /  |/ / / |/_/ / / /\__ \
+         / /|  / />  </ /_/ /___/ /
+        /_/ |_/_/_/|_|\____//____/
+
+         _       __     __                             ______    __
+        | |     / /__  / /________  ____ ___  ___     / ____/___/ /___ _
+        | | /| / / _ \/ / ___/ __ \/ __ `__ \/ _ \   / __/ / __  / __ `/
+        | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/  / /___/ /_/ / /_/ /
+        |__/|__/\___/_/\___/\____/_/ /_/ /_/\___/  /_____/\__,_/\__,_/
+
+      '';
+    };
+    #Open up ports
+    networking.firewall.allowedTCPPorts = true;
+    #Basic rate limiting
+    services.fail2ban = {
+      enable = true;
+      maxretry = 5;
+      bantime = "999h";
+      jails = {
+        apache-nohome-iptables.settings = {
+          # Block an IP address if it accesses a non-existent
+          # home directory more than 5 times in 10 minutes,
+          # since that indicates that it's scanning.
+          filter = "apache-nohome";
+          action = ''iptables-multiport[name=HTTP, port="http,https"]'';
+          logpath = "/var/log/httpd/error_log*";
+          backend = "auto";
+          findtime = 600;
+          bantime = 600;
+          maxretry = 5;
+        };
+      };
+    };
+  };
+}
