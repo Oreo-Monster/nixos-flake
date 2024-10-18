@@ -35,9 +35,9 @@
     };
     #Open up ports
     networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [22];
-    };
+        enable = true;
+        allowedTCPPorts = [ 22 ];
+    }
     #Basic rate limiting
     services.fail2ban = {
       enable = true;
